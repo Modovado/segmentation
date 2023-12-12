@@ -1,0 +1,67 @@
+config: loveda_config.yaml
+### Dataset parameters
+dataset : loveda
+# train + val
+trainval_image_dir: D:\LoveDa_Cropped\train_val\all\image/
+trainval_label_dir: D:\LoveDa_Cropped\train_val\all\label/
+trainval_train_split: 0.8
+trainval_val_split: 0.2
+# test
+test_image_dir: D:\LoveDa_Cropped\test\all\image/
+test_label_dir: D:\LoveDa_Cropped\test\all\label/
+mosaic_ratio : 0.25
+### Model parameters
+## Encoder
+encoder_model: swsl_resnet18
+in_chans: 3
+pretrained: true
+## Reduction
+reduction_channels_scale: 0.5
+## Decoder
+depth: [1, 1, 1]
+split_size: [8, 8, 8]
+num_heads: [8, 8, 8]
+# block
+block_reduction: 4
+block_attn_drop: 0.0
+block_qk_scale: null
+# gating network
+block_k: 2
+block_hid_channels: 512
+block_pool_channels: 16
+block_pool_sizes: 16
+# experts
+block_num_experts: 4
+block_loss_coef: 0.1
+# CA experts
+block_waves: [db1, sym2, coif1, bior1.3]
+# PA experts
+block_kernel_sizes: [1, 3, 7, 11]
+# ffn
+block_drop_path: 0.1
+# head
+block_kernel_size: 5
+num_classes : 7
+ignore_index : 255
+### Optimizer parameters
+opt: adamW
+momentum: 0.9
+weight_decay: 2.0e-05
+### Learning rate schedule parameters
+batch : 4
+sched: cosine
+lr: 0.0001
+warmup_lr: 1.0e-05
+epochs: 200
+warmup_epochs: 5
+min_lr: 0
+### Misc
+device: cuda
+seed : 69
+workers: 4
+prefetch: 4
+output: D:/model_save/N/
+# test
+checkpoint: MetricMeter_F1.pth
+visualization_dir: D:/visualization/
+
